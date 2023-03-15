@@ -1,0 +1,13 @@
+- Hair segmentation
+    - Feature segmentation
+- Music generation
+    - voice
+    - timbre
+        - unsupervised learning of note onset times
+- Voice generation
+- Manga coloring
+- Manga translation
+- Anime character recognition
+- Style transfer
+    - Posture transfer??
+- re-implementation of deepcreampy
