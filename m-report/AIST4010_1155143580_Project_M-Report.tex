@@ -73,7 +73,7 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Project Propoasl}
+\newcommand{\hmwkTitle}{Project Milestone Report}
 \newcommand{\hmwkDoneDate}{\today}
 \newcommand{\hmwkClass}{AIST4010}
 \newcommand{\hmwkClassTime}{}
@@ -98,7 +98,7 @@
 % Title Page
 %
 
-\title{AIST4010 Project Proposal}
+\title{AIST4010 Project Milestone Report}
 \author{YUEN Yu Ching 1155143580}
 \date{\today}
 
@@ -136,38 +136,48 @@
 \begin{document}
 \maketitle
 % \begin{multicols}{2}
-\section{Project Goal}
-In this project, we will be investigating the problem of anime posture transfer. Specifically, we will attempt to fine-tune a diffusion model such that given reference image of an anime character A and an image with an arbiturary character in pose B, the model will generate an image of character A in pose B.
+\section{Introduction}
+The problem of pose-based image synthesis has been studied in past works due to its potential in a wide variety of applications such as face editing and image retrieval. However, there has been less focus on pose-based image synthesis of fictional characters.\\
+In this project, we attempt to investigat the problem of anime posture transfer. Specifically, we are aiming to produce a generative model such that given reference image of an anime character A and an image with an arbiturary character in pose B, the model will generate an image of character A in pose B.
 
-\section{Significance of the project}
-The anime industry in East Asian countries are having in increasingly large influence across the globe. Considering the heavy workload for desinging anime-esque characters, automating the generation of posing pictures of such characters could not only represent a reduction in cost, but also help creators get a better feel of their characters.
+\section{Related Works}
+\textbf{Pose transfer} can be splitted in two components: pose extraction and pose-based image generation. In our reviewed papers, the task of pose-based image generation seems to be more thoroughly studied. Older methods are mostly based on Variational Autoencoders or Generative Adversarial Networks \cite{DBLP:journals/corr/abs-1801-00055}, while recent methods focuses more on transformer-based approaches.\\
+Ren et al. \cite{ren2022neural} proposes a transformer-based approach of extracting input features and reconstruting in a semantically coherent method. Specifically, an extraction would extract neural textures by gathering features in the reference image, then a distribution operation would generate an output image for each target (e.g. head, hand, torso) according to the learned semantic distribution.\\
+Liu et al. \cite{liu2022dynast} proposes an multi-layer sparse attention module which wraps the exemplar image using attention maps to produce a finer matching result, especially for local details.\\
+Zhou et al \cite{zhou2022cross} proposes another method, in which a cross attention based style distribution module calculates between the target pose and semantic style represented by each semantic, and distributes them in a one-to-one matching basis.\\
+\textbf{Style transfer} is a task in which an input image is tuned to minimize the content loss and style loss between a content image and style image respectively.\\
+In this project, we focused on neural style transfer, proposed by Gatys et al. \cite{gatys2015neural}, in which a single convolutional neural network is used to obtain the style representation and content repesentation from a style image and a content image respectively, with reconstructions of the feature spaces using the output from different subsets of the CNN.\\
+\textbf{Image generation} refers to the task of generating an image given prompts. A recently popular examples is the Stable Diffusion, introduced by Rombach et al. \cite{stable-diffusion}, which is trained with the objective of removing successive layers of gaussian noise similar to a reversal of diffusion in the physical world. It is noted that diffusion models perform the best out of its predecessors in this task: Kim et al. \cite{kim2023refining} is listed as the top performer with the lowest Fr{\`{e}}chet inception distance FID in the CIFAR-10 image generation benchmark.
 
 \section{Dataset}
-We will be using a subset of the \href{https://gwern.net/danbooru2021}{Danbooru2021} \cite{danbooru2021} dataset. It is an extensive anime image dataset collected from the anime image aggregator Danbooru.\\
+We will be using a subset of the \href{https://gwern.net/danbooru2021#danbooru2020}{Danbooru2020} \cite{danbooru2021} dataset, provided by \cite{danbooru2020small}. It is a small 14GB anime image dataset collected from the anime image aggregator Danbooru.\\
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.1]{danbooru2020-512px-samples.jpg}
-\caption{100 sample images from the danbooru2021 dataset}
+\caption{100 sample images from the danbooru2020 dataset}
 \end{figure}
 
-The dataset in its totality is around 4.5 terabytes in size. However, as part of the project, we will be choosing a small subset of suitable images for training, and we expect it to be around 100 gigabytes after filtering.\\
-However, we may face disk quota issues even with this reduced size. In such case, we will further refine the filter parameters until the working dataset is reduced to a reasonable size.
+\section{Proposed methods}
+We approach this problem by splitting it in three components: character pose extraction, character feature extraction, and image generation. To this end, there are multiple possible methods to fufill the above components.\\
+First is fine-tuning a stable diffusion model using ControlNet proposed by Zhang et al. \cite{zhang2023adding}. By "locking" certain layers of the diffusion model, the generative feature of the model would be secured, while the features perceived by the model can be finely controled.\\
+Another approach is the neural style transfer \cite{gatys2015neural} mentioned above. We note that the output image has similar colors as the style image, while the outline of the output image is similar to that of the input image. Since characters usually are aligned similarly (e.g. head on top, legs on bottom), we hoped that this would translate to a coherent result.\\
+Last but not least, the human-focused pose transfer could be adopted for character drawings too. However, due to difference in photos of actual humans and drawings of characters, another method would need to be developed or fine-tuned for our task.
 
-\section{Proposed method}
-Given that we will be primarily working with anime images, we plan to fine-tune the \texttt{waifu-diffusion} diffusion model provided by hakurei on huggingface \cite{waifu-diffusion}. We plan to fine-tune it using ControlNet to ensure the validity of the final model.\\
-
-\section{Related works}
-There are similar models on feature transferral such as \cite{9050061}, which is based on GAN. Should there be enough time, we will attempt to compare the performance of the two architectures by separately training a GAN-based pose transerral model based on the findings in \cite{9050061}.
-
-How will you evaluate your results? Qualitatively, what kind of results do you expect (e.g.,plots or figures)? Quantitatively, what kind of analysis will you use to evaluate and/or compare your results (e.g., what performance metrics or statistical tests)? What is your hypothesis regarding your results compared to baselines?
-\section{Expected results}
-Qualitatively, we will evaluate it using plots of its training loss and testing loss, as well as periodically generating testing samples to ensure that the training is progressing towards the objective.\\
-Quantitavily, we will test various loss functions such as L1 loss and L2 loss for their efficicency in training, as proposed by Rogge and Rasul \cite{annotated-diffusion}.\\
-We hypothesise that the results will be more detailed and accurate compared to baseline, as the training process will enable the model to recognize and utilize more features from the input images.
+\section{Preliminary results}
+Given the nature of the task, we initially attempted to fine-tune the \texttt{waifu-diffusion} diffusion model provided by hakurei on huggingface \cite{waifu-diffusion} using ControlNet. However, due to hardware limitations, this proved to be infeasible.\\
+We then attempted to approach it on a painting-oriented approach of style transfer, given the drawn nature of our dataset.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{final-output.jpg}
+\caption{From left to right: content image, style image, output}
+\label{fig2}
+\end{figure}
+While the outline of the output image resembles the content image, and colors are distributed roughly according to the style image (pink-ish color on the top, blue at the "torso" and "leg" parts), it does not resemble any of the two characters.\\
+We plan to explore the human-based style transfer models in the next phase of the project. Should transformer-based models be unavailable due to hardware limitations, we will attempt the task with earlier GAN-based approaches.
 % \end{multicols}
 
 \bibliographystyle{IEEEtran}
-\bibliography{proposal}
+\bibliography{m-report}
 
 \end{document}

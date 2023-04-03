@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/Arch Linux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: AIST4010_1155143580_Project_M-Report.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Database file #1: m-report.bib
+Warning--entry type for "danbooru2020small" isn't style-file defined
+--line 94 of file m-report.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 11 entries,
+            4087 wiz_defined-function locations,
+            874 strings with 9332 characters,
+and the built_in function-call counts, 5226 in all, are:
+= -- 366
+> -- 165
+< -- 1
++ -- 78
+- -- 39
+* -- 238
+:= -- 866
+add.period$ -- 22
+call.type$ -- 11
+change.case$ -- 13
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 416
+empty$ -- 475
+format.name$ -- 48
+if$ -- 1153
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 106
+newline$ -- 66
+num.names$ -- 11
+pop$ -- 311
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 386
+stack$ -- 0
+substring$ -- 15
+swap$ -- 254
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 11
+warning$ -- 0
+while$ -- 11
+width$ -- 13
+write$ -- 120
+(There was 1 warning)
